@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccine Design Automation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1f1f1f;
+            color: #ddd;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #121212;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        header h1 {
+            font-size: 2.5rem;
+        }
+        header p {
+            font-size: 1.2rem;
+        }
+        footer {
+            background-color: #121212;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        footer a {
+            color: #ddd;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #66c0f4;
+        }
+        .card {
+            border-radius: 10px;
+            border: 1px solid #444;
+            background-color: #2c2c2c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .card-body {
+            padding: 20px;
+            text-align: center;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            color: #f1f1f1;
+        }
+        .card-text {
+            font-size: 1rem;
+            color: #aaa;
+        }
+        .btn-start {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+        }
+        .btn-start:hover {
+            background-color: #0056b3;
+        }
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .steps-container .card {
+            width: 100%;
+            max-width: 600px;
+        }
+        .steps-container .card:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+            background-color: rgb(60, 140, 60);
+        }
+        .steps-container .card.selected {
+            background-color: #3b3b3b;
+        }
+        .steps-container .card:active {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Vaccine Design Automation Tool</h1>
+        <p>Follow the steps below to automate the design and testing process.</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="steps-container">
+            <!-- Step 1 -->
+            <div class="card" id="step1" onclick="selectCard('step1')">
+                <div class="card-body">
+                    <h4 class="card-title">Step 1: Upload Your .fa File</h4>
+                    <p class="card-text">Upload your FASTA file containing protein sequences. This file will be used for further processing and analysis.</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="card" id="step2" onclick="selectCard('step2')">
+                <div class="card-body">
+                    <h4 class="card-title">Step 2: Convert .fa to .csv</h4>
+                    <p class="card-text">Once the file is uploaded, it will be converted into a CSV format for easier processing and further analysis.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="card" id="step3" onclick="selectCard('step3')">
+                <div class="card-body">
+                    <h4 class="card-title">Step 3: Run Allergenicity, Signal P, and Antigen Tests</h4>
+                    <p class="card-text">Run allergenicity tests, Signal P detection, and antigen testing on the sequences. View the results after processing.</p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="card" id="step4" onclick="selectCard('step4')">
+                <div class="card-body">
+                    <h4 class="card-title">Step 4: Sequence Filtering</h4>
+                    <p class="card-text">Filter the sequences after the allergenicity, antigen, and Signal P detection steps to refine the dataset.</p>
+                </div>
+            </div>
+
+            <!-- Step 5: B-cell Epitope Prediction -->
+            <div class="card" id="step5" onclick="selectCard('step5')">
+                <div class="card-body">
+                    <h4 class="card-title">Step 5: B-cell Epitope Prediction</h4>
+                    <p class="card-text">Predict B-cell epitopes from the filtered sequences. Run allergenicity, antigen, and toxicity tests on them to obtain the final predicted epitopes.</p>
+                </div>
+            </div>
+
+            <!-- Step 6: T-cell A1 Supertype Epitope Prediction -->
+            <div class="card" id="step6" onclick="selectCard('step6')">
+                <div class="card-body">
+                    <h4 class="card-title">Step 6: T-cell A1 Supertype Epitope Prediction</h4>
+                    <p class="card-text">Perform epitope prediction for T-cell A1 supertype using the same filtering process as Step 5.</p>
+                </div>
+            </div>
+
+            <!-- Step 7: T-cell B58 Supertype Epitope Prediction -->
+            <div class="card" id="step7" onclick="selectCard('step7')">
+                <div class="card-body">
+                    <h4 class="card-title">Step 7: T-cell B58 Supertype Epitope Prediction</h4>
+                    <p class="card-text">Perform epitope prediction for T-cell B58 supertype with similar filtering as Step 5 and 6.</p>
+                </div>
+            </div>
+
+            <!-- Step 8: Th-cell Epitope Prediction -->
+            <div class="card" id="step8" onclick="selectCard('step8')">
+                <div class="card-body">
+                    <h4 class="card-title">Step 8: Th-cell Epitope Prediction</h4>
+                    <p class="card-text">Run epitope prediction for Th-cells and filter the sequences similarly as in the previous steps.</p>
+                </div>
+            </div>
+
+            <!-- Final Step: Download Epitope Data -->
+            <div class="card" id="step9" onclick="selectCard('step9')">
+                <div class="card-body">
+                    <h4 class="card-title">Step 9: Download All Epitopes</h4>
+                    <p class="card-text">Once all tests and predictions are complete, download the final epitopes generated from all the steps.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Button -->
+        <div class="text-center">
+            <a href="/step1" class="btn-start">Start Now</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Vaccine Design Automation. All rights reserved.</p>
+        <p><a href="https://github.com" target="_blank">GitHub</a> | <a href="mailto:contact@example.com">Contact</a></p>
+    </footer>
+
+    <!-- Bootstrap JS (for responsive features) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // JavaScript function to change card color on click
+        function selectCard(stepId) {
+            // Deselect all cards
+            const allCards = document.querySelectorAll('.card');
+            allCards.forEach(card => {
+                card.classList.remove('selected');
+            });
+            // Select the clicked card
+            const selectedCard = document.getElementById(stepId);
+            selectedCard.classList.add('selected');
+        }
+    </script>
+</body>
+</html>

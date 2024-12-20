@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        *{
+            text-align: center;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1f1f1f;
+            color: #ddd;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #121212;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        header h1, footer p {
+            margin: 0;
+        }
+        footer a {
+            color: #ddd;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #66c0f4;
+        }
+        .timeline {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .timeline .step {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            margin: 0 10px;
+        }
+        .timeline .completed {
+            background-color: #28a745;
+        }
+        .timeline .active {
+            background-color: yellow;
+        }
+        .card {
+            background-color: #2c2c2c;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            padding: 20px;
+            width: 60%;
+            margin:30px auto;
+        }
+        .btn-start {
+            
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+        }
+        .btn-start:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .form-control {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #666;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .btn-upload {
+            display: block;
+            padding: 10px 20px;
+            background-color:  #007bff;
+            color: white;
+            border-radius: 50px;
+            border:none;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin: 10px auto;
+            width: 60%;
+        }
+        .btn-upload:hover {
+            background-color :#0056b3; 
+        }
+        .text-center {
+            margin-top: 30px;
+        }
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1> <a href="/" style="text-decoration: none; color: white;">Vaccine Design Automation Tool</a></h1>
+
+        <!-- <p>Step 1: Upload Your FASTA File</p> -->
+    </header>
+
+    <!-- Timeline -->
+    <div class="timeline">
+        <div class="step active">1</div>
+        <div class="step">2</div>
+        <div class="step">3</div>
+        <div class="step">4</div>
+        <div class="step">5</div>
+        <div class="step">6</div>
+        <div class="step">7</div>
+        <div class="step">8</div>
+        <div class="step">9</div>
+    </div>
+
+    <!-- File Upload and Script Execution Section -->
+    <div class="container">
+        <div class="card">
+            <h4 style="color: white; text-align: center;">FASTA to CSV Conversion</h4>
+            {% if file_uploaded %}
+                <!-- <p style="color: white;">File uploaded successfully!</p> -->
+            {% endif %}
+            {% if file_converted %}
+                <p style="color: green;">File converted successfully!</p>
+                <a href="{{ url_for('download', filename=converted_filename) }}" class="btn-start" style="width: 200px; margin: auto; background-color: green;">Download CSV</a>
+            {% else %}
+                <form action="/step1" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" accept=".fa" class="form-control" >
+                    <button type="submit" class="btn-upload" name="upload" value="upload">Upload and Convert</button>
+                    <button type="submit" class="btn-upload" name="default" value="default">Proceed with Default File</button>
+                </form>
+            {% endif %}
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="text-center">
+            <a href="/" class="btn-start" style="width: 300px; ">Back to Home</a>
+            {% if file_converted %}
+                <a href="/step2" class="btn-start" style="width: 300px;margin-left: 100px;">Proceed to Next Step</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Vaccine Design Automation. All rights reserved.</p>
+        <p><a href="https://github.com" target="_blank">GitHub</a> | <a href="mailto:contact@example.com">Contact</a></p>
+    </footer>
+
+</body>
+</html>

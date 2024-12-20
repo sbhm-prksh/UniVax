@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 8</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            text-align: center;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #1f1f1f;
+            color: #ddd;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #121212;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        header h1, footer p {
+            margin: 0;
+        }
+        footer a {
+            color: #ddd;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #66c0f4;
+        }
+        .timeline {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .timeline .step {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            margin: 0 10px;
+        }
+        .timeline .completed {
+            background-color: #28a745;
+        }
+        .timeline .active {
+            background-color: yellow;
+        }
+        .card {
+            background-color: #2c2c2c;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            padding: 20px;
+            width: 60%;
+            margin:30px auto;
+        }
+        .btn-start {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+            border:none;
+        }
+        .btn-start:hover {
+            background-color: #0056b3;
+        }
+        .processing-btn {
+            background-color: #f39c12;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            padding: 15px 30px;
+            display: inline-block;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .processing-btn:hover {
+            background-color: #e67e22;
+        }
+        footer {
+            margin-top: auto;
+        }
+        .hidden {
+            display: none;
+        }
+        #btnSpecial {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            /* transition: background-color 0.3s; */
+            margin-top: 30px;
+            
+        }
+
+        /* Keyframes for shape animation */
+        @keyframes morphing {
+            0% { 
+                width: 200px; }
+            100% { width: 300px; }
+        }
+
+        /* Style when the button is processing */
+        #btnSpecial.processing {
+            position: relative;
+            overflow: hidden;
+            animation: morphing;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-fill-mode: forwards;
+            animation-direction: alternate;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1> <a href="/" style="text-decoration: none; color: white;">Vaccine Design Automation Tool</a></h1>
+
+        <!-- <p>Step 8: Predicting TH Cell Epitopes</p> -->
+    </header>
+
+    <div class="timeline">
+        <div class="step completed">1</div>
+        <div class="step completed">2</div>
+        <div class="step completed">3</div>
+        <div class="step completed">4</div>
+        <div class="step completed">5</div>
+        <div class="step completed">6</div>
+        <div class="step completed ">7</div>
+        <div class="step active">8</div>
+        <div class="step">9</div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            {% if processing %}
+                <h4 style="color: white;">TH Epitope Prediction in progress. Please wait...</h4>
+                <button class="processing-btn">Processing...</button>
+            {% elif not file_processed %}
+                <h4 style="color: white;">TH Epitope Prediction.</h4>
+                <form action="/step8" method="POST">
+                    <button type="submit" class="btn-start" id="btnSpecial">Start Now</button>
+                </form>
+            {% else %}
+                <p style="color: green;">TH Epitope Prediction completed successfully!</p>
+                <a href="{{ url_for('download', filename=th_filename)}}" class="btn-start" style="width: 300px; margin:auto; background-color: green;">Download TH Results</a>
+                <br><br>
+                <a href="{{ url_for('download', filename=filtered_filename) }}" class="btn-start" style="width: 300px; margin:auto; background-color: green;";>Download Filtered Epitopes</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="/step7" class="btn-start" style="width: 300px;">Back to Step 7</a>
+        {% if file_processed %}
+        <a href="/step9" class="btn-start" style="width: 300px; margin-left: 100px;">Proceed to Next Step</a>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Vaccine Design Automation. All rights reserved.</p>
+        <p><a href="https://github.com" target="_blank">GitHub</a> | <a href="mailto:contact@example.com">Contact</a></p>
+    </footer>
+    <script>
+        const button = document.getElementById('btnSpecial');
+
+        button.addEventListener('click', () => {
+            // Add the "processing" class to trigger the animation
+            button.classList.add('processing');
+            button.innerHTML="Processing...";
+
+            // Simulate processing by removing the animation after 5 seconds
+            // setTimeout(() => {
+            //     button.classList.remove('processing');
+            // }, 5000);
+        });
+    </script>
+</body>
+</html>

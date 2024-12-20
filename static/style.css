@@ -1,0 +1,117 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+.header {
+    background-color: #1f1f1f;
+    padding: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2rem;
+}
+
+/* Timeline */
+.timeline {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    background-color: #1f1f1f;
+    margin: 20px 0;
+}
+
+.timeline-step {
+    text-align: center;
+    flex: 1;
+    position: relative;
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #777;
+    margin: 0 auto;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.step-label {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.timeline-step.active .step-number {
+    background-color: #4CAF50;
+}
+
+.timeline-step.completed .step-number {
+    background-color: #4CAF50;
+}
+
+/* Main container */
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+input[type="file"] {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #333;
+    color: white;
+    border: none;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.upload-success, .success-message {
+    margin-top: 20px;
+}
+
+.navigation-buttons {
+    margin-top: 30px;
+}
+
+.navigation-buttons .btn {
+    margin: 10px;
+}
+
+footer {
+    background-color: #1f1f1f;
+    padding: 10px;
+    text-align: center;
+    margin-top: 50px;
+}
